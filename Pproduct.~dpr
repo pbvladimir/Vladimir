@@ -1,0 +1,16 @@
+program Pproduct;
+
+uses
+  Forms,
+  Uproduct in 'Uproduct.pas' {Form1},
+  Upassword in 'Upassword.pas' {Flogin},
+  Uconnection in 'Uconnection.pas';
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFlogin, Flogin);
+  Application.Run;
+end.

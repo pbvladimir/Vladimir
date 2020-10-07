@@ -1,0 +1,22 @@
+unit Uconnection;
+
+interface
+
+uses SysUtils, Dialogs;
+
+type Resident = class
+              apartament : Integer;
+              Surrname : String;
+              function Info (): String;
+      end;
+
+implementation
+
+function Resident.Info;
+begin
+  Result := 'resident: ' + Surrname +
+  ' apartament ¹: ' + IntToStr(apartament) + '.';
+end;
+
+
+end.

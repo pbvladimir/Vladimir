@@ -1,0 +1,25 @@
+unit UScanner;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls;
+
+type
+  TFScanner = class(TForm)
+    Panel1: TPanel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FScanner: TFScanner;
+
+implementation
+
+{$R *.DFM}
+
+end.
