@@ -11,6 +11,7 @@ object Flogin: TFlogin
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -59,14 +60,14 @@ object Flogin: TFlogin
       Text = 'log'
       OnKeyPress = Ed_passwordKeyPress
     end
-    object Button3: TButton
+    object BtnInput: TButton
       Left = 78
       Top = 127
       Width = 75
       Height = 24
       Caption = '¬ход'
       TabOrder = 2
-      OnClick = Button3Click
+      OnClick = BtnInputClick
     end
     object ComboBox1: TComboBox
       Left = 38
@@ -77,9 +78,9 @@ object Flogin: TFlogin
       TabOrder = 3
     end
   end
-  object FIBDS1: TpFIBDataSet
+  object FIBDS: TpFIBDataSet
     Transaction = FProduct.FIBTrRead
-    Database = FProduct.pFIBDatabase1
+    Database = FProduct.pFIBDbaseGeneral
     UpdateTransaction = FProduct.FIBTrUpdata
     Left = 208
     Top = 8

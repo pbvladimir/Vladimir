@@ -1,9 +1,9 @@
 object FProduct: TFProduct
   Left = 189
   Top = 139
-  Width = 979
-  Height = 563
-  Caption = 'FProduct'
+  Width = 405
+  Height = 199
+  Caption = 'Продукция'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,11 +18,10 @@ object FProduct: TFProduct
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
-    Top = 468
-    Width = 963
+    Top = 104
+    Width = 389
     Height = 37
     Align = alBottom
-    Caption = 'Panel1'
     TabOrder = 0
     object Lb_org: TLabel
       Left = 8
@@ -34,13 +33,12 @@ object FProduct: TFProduct
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 963
-    Height = 468
+    Width = 389
+    Height = 104
     Align = alClient
-    Caption = 'Panel2'
     TabOrder = 1
   end
-  object pFIBDatabase1: TpFIBDatabase
+  object pFIBDbaseGeneral: TpFIBDatabase
     Connected = True
     DBName = 'localhost:D:\PROJECT_BD\BASE\OBJECT.GDB'
     DBParams.Strings = (
@@ -51,34 +49,29 @@ object FProduct: TFProduct
     SQLDialect = 3
     Timeout = 0
     WaitForRestoreConnect = 0
-    Left = 56
-    Top = 32
+    Left = 48
   end
   object FIBTrUpdata: TpFIBTransaction
-    DefaultDatabase = pFIBDatabase1
+    Active = True
+    DefaultDatabase = pFIBDbaseGeneral
     TimeoutAction = TARollback
-    Left = 56
-    Top = 64
+    Left = 88
   end
   object FIBTrRead: TpFIBTransaction
-    DefaultDatabase = pFIBDatabase1
+    Active = True
+    DefaultDatabase = pFIBDbaseGeneral
     TimeoutAction = TARollback
-    Left = 56
-    Top = 104
+    Left = 128
   end
   object MainMenu1: TMainMenu
     Left = 8
-    Top = 24
     object EXIT1: TMenuItem
       Caption = '&Выход'
       OnClick = EXIT1Click
     end
     object N1: TMenuItem
-      Caption = '&Сканер'
+      Caption = '&Техника за организацией'
       OnClick = N1Click
-    end
-    object N2: TMenuItem
-      Caption = '&Товары'
     end
   end
 end

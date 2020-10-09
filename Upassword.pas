@@ -14,17 +14,19 @@ type
     Ed_password: TEdit;
     Label1: TLabel;
     Label2: TLabel;
-    Button3: TButton;
-    FIBDS1: TpFIBDataSet;
+    BtnInput: TButton;
+    FIBDS: TpFIBDataSet;
     ComboBox1: TComboBox;
     Label3: TLabel;
-    procedure Button1Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
+    procedure BtnInputClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Ed_passwordKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
+    SHUT: Boolean;
     { Private declarations }
   public
+    ORG_AND_USER: integer;
     { Public declarations }
   end;
 
@@ -37,23 +39,11 @@ uses Uproduct;
 
 {$R *.DFM}
 
-procedure TFlogin.Button1Click(Sender: TObject);
-var
-  Ivanov : Resident;
-begin
-  Ivanov := Resident.Create();
-  Ivanov.apartament:=20;
-  Ivanov.Surrname:='Ivanov';
-  Showmessage(Ivanov.Info());
-  Flogin.Close;
-  FProduct.Close;
-end;
-
-procedure TFlogin.Button3Click(Sender: TObject);
+procedure TFlogin.BtnInputClick(Sender: TObject);
 var
   i : integer;
 begin
-  with FIBDS1 do begin
+  with FIBDS do begin
     if Active then Close;
     Params.ClearValues;
     SelectSQL.Text :='SELECT uo.id '+
@@ -65,9 +55,11 @@ begin
     ParamByName('pass').AsString:= Ed_password.Text;
     ParamByName('name_org').AsString:= ComboBox1.Text;
     CloseOpen(True);
+
     if RecordCountFromSrv > 0 then
       begin
-        Uproduct.FProduct.Lb_org.Caption:= FieldByName('id').AsString;
+        ORG_AND_USER:= FieldByName('id').AsInteger;
+        SHUT:= False;
         Flogin.Close;
       end
     else
@@ -83,24 +75,33 @@ end;
 
 procedure TFlogin.FormCreate(Sender: TObject);
 begin
+  if not FProduct.pFIBDbaseGeneral.Connected then
+    FProduct.pFIBDbaseGeneral.Connected:= True;
+    
+  SHUT:= True;
 
-  with FIBDS1 do begin
+  with FIBDS do begin
     if Active then Close;
     SelectSQL.Text :='select NAME from organizations org ';
     CloseOpen(True);
   end;
 
-  while not FIBDS1.Eof do
+  while not FIBDS.Eof do
   begin
-    ComboBox1.Items.Add(FIBDS1.FieldByName('NAME').AsString);
-    FIBDS1.Next;
+    ComboBox1.Items.Add(FIBDS.FieldByName('NAME').AsString);
+    FIBDS.Next;
   end
 
 end;
 
 procedure TFlogin.Ed_passwordKeyPress(Sender: TObject; var Key: Char);
 begin
-  if Ord(Key) = 13 then Button3Click(self);
+  if Ord(Key) = 13 then BtnInputClick(self);
+end;
+
+procedure TFlogin.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  if SHUT then  FProduct.Close;
 end;
 
 end.

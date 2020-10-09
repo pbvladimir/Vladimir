@@ -4,13 +4,13 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  FIBDatabase, pFIBDatabase, StdCtrls, Upassword, ExtCtrls, Menus, UScanner;
-var
-  ORGANIZATION_ID : integer;
-  
+  FIBDatabase, pFIBDatabase, StdCtrls, Upassword, ExtCtrls, Menus, UScanner,
+  UTechniqueByOrganization, Db, FIBDataSet, pFIBDataSet, FIBQuery,
+  pFIBQuery;
+
 type
   TFProduct = class(TForm)
-    pFIBDatabase1: TpFIBDatabase;
+    pFIBDbaseGeneral: TpFIBDatabase;
     FIBTrUpdata: TpFIBTransaction;
     FIBTrRead: TpFIBTransaction;
     Panel1: TPanel;
@@ -19,7 +19,6 @@ type
     MainMenu1: TMainMenu;
     EXIT1: TMenuItem;
     N1: TMenuItem;
-    N2: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EXIT1Click(Sender: TObject);
@@ -39,16 +38,13 @@ implementation
 
 procedure TFProduct.FormShow(Sender: TObject);
 begin
-  Lb_org.caption:= '0';
-  pFIBDatabase1.Connected:= True;
+  pFIBDbaseGeneral.Connected:= True;
   Flogin.ShowModal;
-  ORGANIZATION_ID := StrToInt(Lb_org.caption);
-  Lb_org.caption:= '';
 end;
 
 procedure TFProduct.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  pFIBDatabase1.Connected:=False;
+  pFIBDbaseGeneral.Connected:=False;
 end;
 
 procedure TFProduct.EXIT1Click(Sender: TObject);
@@ -58,7 +54,7 @@ end;
 
 procedure TFProduct.N1Click(Sender: TObject);
 begin
-  FScanner.ShowModal;
+  FTechniqueByOrganization.ShowModal;
 end;
 
 end.
