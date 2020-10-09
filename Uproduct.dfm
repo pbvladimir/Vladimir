@@ -39,8 +39,6 @@ object FProduct: TFProduct
     TabOrder = 1
   end
   object pFIBDbaseGeneral: TpFIBDatabase
-    Connected = True
-    DBName = 'localhost:D:\PROJECT_BD\BASE\OBJECT.GDB'
     DBParams.Strings = (
       'user_name=SYSDBA'
       'password=masterkey')
@@ -52,13 +50,11 @@ object FProduct: TFProduct
     Left = 48
   end
   object FIBTrUpdata: TpFIBTransaction
-    Active = True
     DefaultDatabase = pFIBDbaseGeneral
     TimeoutAction = TARollback
     Left = 88
   end
   object FIBTrRead: TpFIBTransaction
-    Active = True
     DefaultDatabase = pFIBDbaseGeneral
     TimeoutAction = TARollback
     Left = 128

@@ -1,8 +1,8 @@
 object FTechniqueByOrganization: TFTechniqueByOrganization
   Left = 192
   Top = 124
-  Width = 670
-  Height = 277
+  Width = 510
+  Height = 253
   Caption = 'Техника за организацией'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,15 +18,16 @@ object FTechniqueByOrganization: TFTechniqueByOrganization
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 654
-    Height = 219
+    Width = 494
+    Height = 195
     Align = alClient
     TabOrder = 0
     object DBGridEh1: TDBGridEh
-      Left = 2
-      Top = 10
-      Width = 481
-      Height = 158
+      Left = 1
+      Top = 1
+      Width = 492
+      Height = 193
+      Align = alClient
       DataSource = DataSource1
       FooterColor = clWindow
       FooterFont.Charset = DEFAULT_CHARSET
@@ -40,6 +41,7 @@ object FTechniqueByOrganization: TFTechniqueByOrganization
       TitleFont.Height = -11
       TitleFont.Name = 'MS Sans Serif'
       TitleFont.Style = []
+      OnKeyPress = DBGridEh1KeyPress
       Columns = <
         item
           EditButtons = <>
@@ -52,7 +54,7 @@ object FTechniqueByOrganization: TFTechniqueByOrganization
           EditButtons = <>
           FieldName = 'NAME'
           Footers = <>
-          Title.Caption = 'Имя техники'
+          Title.Caption = 'Название техники'
           Width = 174
         end
         item
@@ -99,8 +101,19 @@ object FTechniqueByOrganization: TFTechniqueByOrganization
     SQL.Strings = (
       'UPDATE warehouse SET user_and_org_id = :user_and_org_id '
       'WHERE barcode_id = :barcode')
-    Left = 512
-    Top = 16
+    Left = 208
+    Top = 88
     qoAutoCommit = True
+  end
+  object FIBQRead: TpFIBQuery
+    Transaction = FProduct.FIBTrRead
+    Database = FProduct.pFIBDbaseGeneral
+    SQL.Strings = (
+      'SELECT user_and_org_id'
+      'FROM warehouse'
+      'WHERE barcode_id = :barcoode')
+    Left = 256
+    Top = 88
+    qoStartTransaction = True
   end
 end

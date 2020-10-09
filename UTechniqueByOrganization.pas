@@ -16,8 +16,10 @@ type
     MainMenu1: TMainMenu;
     N1: TMenuItem;
     FIBQUpdate: TpFIBQuery;
+    FIBQRead: TpFIBQuery;
     procedure FormShow(Sender: TObject);
     procedure N1Click(Sender: TObject);
+    procedure DBGridEh1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -42,7 +44,7 @@ end;
 
 procedure AddProduct;
 var
-  barcoode, org_and_user_id: integer;
+  barcoode, org_and_user_id, buttonSelected: integer;
 
 begin
   FScanner.ShowModal;
@@ -51,6 +53,22 @@ begin
   org_and_user_id:= Flogin.ORG_AND_USER;
 
   with FTechniqueByOrganization do begin
+    FIBQRead.ParamByName('barcoode').AsInteger:= barcoode;
+    FIBQRead.ExecQuery;
+    if(FIBQRead.RecordCount < 1) then
+      begin
+        ShowMessage('Нет такого штрихкода на складе!');
+        Exit;
+      end;
+
+    if(FIBQRead.FieldByName('user_and_org_id').AsString <> Null) then
+      begin
+        buttonSelected := MessageDlg('Такой штрихкод закреплён за пользователем '+
+        'на складе, принять?', mtError, mbOKCancel, 0);
+
+        if buttonSelected = mrCancel then Exit;
+      end;
+
     FIBQUpdate.ParamByName('user_and_org_id').AsInteger:= org_and_user_id;
     FIBQUpdate.ParamByName('barcode').AsInteger:= barcoode;
     FIBQUpdate.ExecQuery;
@@ -63,6 +81,12 @@ end;
 procedure TFTechniqueByOrganization.N1Click(Sender: TObject);
 begin
   AddProduct;
+end;
+
+procedure TFTechniqueByOrganization.DBGridEh1KeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Ord(Key) = 27 then FTechniqueByOrganization.Close;
 end;
 
 end.

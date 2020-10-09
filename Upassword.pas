@@ -75,9 +75,14 @@ end;
 
 procedure TFlogin.FormCreate(Sender: TObject);
 begin
+  FProduct.pFIBDbaseGeneral.DBName:= FProduct.FReads;
+
   if not FProduct.pFIBDbaseGeneral.Connected then
     FProduct.pFIBDbaseGeneral.Connected:= True;
-    
+
+  FProduct.FIBTrUpdata.Active:= True;
+  FProduct.FIBTrRead.Active:= True;
+
   SHUT:= True;
 
   with FIBDS do begin
